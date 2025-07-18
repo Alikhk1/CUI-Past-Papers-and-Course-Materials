@@ -1,0 +1,16 @@
+We have 2 codes for 1 for client and 1 for server.
+Client - > Host IP, Port Number
+Server - > Port Number 
+
+
+
+=> Activity 2: (Need 2 seperate CMD instances)
+1) javac TimerServer.java
+   java TimeServer 1222
+2) javac TimeClient.java
+   java TimeClient localhost 1222
+
+
+=> Activity 3: Reverse Text 
+1)
+2)

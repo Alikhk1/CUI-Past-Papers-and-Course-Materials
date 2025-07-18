@@ -1,0 +1,11 @@
+
+1. Set VTP domain name:
+
+Switch(config)#vtp domain CS
+
+2. In order for changes made in one switch to take place in other switches as well. we will have to
+trunk the interfaces:
+
+Switch(config)#int range fa0/1-fa0/2
+Switch(config-if-range)#switchport mode trunk
+Switch(config-if-range)#exit

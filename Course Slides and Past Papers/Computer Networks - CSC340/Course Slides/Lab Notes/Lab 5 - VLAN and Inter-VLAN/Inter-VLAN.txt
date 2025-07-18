@@ -1,0 +1,16 @@
+
+Devices: Router 2911, Switch 2960.
+
+1. Assign IP to PC(s) 192.168.x.y (Make sure y is 2, cause router will be 1)
+
+2. Configure Within Switch:
+	(a). Make vlan.
+	(b). Assign Interfaces to vlans.	
+	(c). Trunk Switch Ports.
+
+3. Turn on Router Interface and Configure Router sub-interfaces with dot1q encapsulation:
+
+Router(config)#int gig0/0.10
+Router(config-subif)#encapsulation dot1q 10
+Router(config-subif)#ip address 192.168.1.1 255.255.255.0
+Router(config-subif)#exit

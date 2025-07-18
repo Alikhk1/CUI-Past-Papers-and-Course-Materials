@@ -1,0 +1,17 @@
+Open the provided trace file in the wireshark and answer the following questions.
+
+Q1: What is the sequence number of the TCP SYN segment that is used to initiate the TCP connection between the client computer and server? What is it in the segment that identifies the segment as a SYN segment?
+
+Q2: What is the sequence number of the SYNACK segment sent by server to the client computer in reply to the SYN? What is the value of the Acknowledgement field in the SYNACK segment?
+
+Q3: What is the sequence number of the TCP segment containing the HTTP POST command? 
+
+Q4: Consider the third TCP segment containing the HTTP POST as the first segment in the TCP connection. What are the sequence numbers of the first four segments in the TCP connection (including the segment containing the HTTP POST)? At what time was each segment sent? When was the ACK for each segment received? Calculate the sample RTT for each segment.
+
+What is the EstimatedRTT value after the receipt of each ACK? Assume that the value of the EstimatedRTT is equal to the measured RTT for the first segment, and then is computed using the EstimatedRTT equation for all subsequent segments.
+
+Q5: What is the length of each of the first four TCP segments?
+
+Q6: What is the minimum amount of available buffer space advertised at the received for the entire trace? 
+
+Q7: What is the throughput (bytes transferred per unit time) for the TCP connection? Explain how you calculated this value.

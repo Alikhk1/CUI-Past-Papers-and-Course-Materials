@@ -1,0 +1,35 @@
+
+
+1.Make VLAN on Switch (2959-24):
+Switch(config)#vlan 10
+Switch(config-vlan)#name Lab-A
+Switch(config-vlan)#exit
+Switch(config)#vlan 20
+Switch(config-vlan)#name Lab-B
+Switch(config-vlan)#exit
+Switch(config)#vlan 30
+Switch(config-vlan)#name Lab-C
+Switch(config-vlan)#exit
+
+2.Assign ports to VLAN:
+Switch(config)#interface range fa0/1 - fa0/5
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+Switch(config-if-range)#exit
+
+Switch(config)#interface range fa0/6- fa0/10
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+Switch(config-if-range)#exit
+
+Switch(config)#interface range fa0/11 - fa0/15
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+Switch(config-if-range)#exit
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+
+DHCP by server:
+1. Assign IP Address to Server. (Set it Static)
+2. Select dhcp services.
+3. Give Gateway, DNS. (Same IP you set in Static)
+4. save
+
+DNS:
+1. Select DNS services.
+2. Provide name & IP address
+
+
+

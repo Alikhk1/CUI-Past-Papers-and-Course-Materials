@@ -1,0 +1,13 @@
+Computational Intelligence (CI)
+Terminal Exam Fall 2023
+Ma’am Dr Atifa Athar 💀
+[50 marks paper]
+Q1: ACO 5 advantages/ 5 disadvantages 
+Q2: PSO solve iteration 2.
+Q3: lstm/rnn difference w.r.t short text classification 
+Q4: 
+a) which gates are used for single and double input in quantum. Draw figure with table.
+b) which gate is used in superposition.
+Q5: (Scenario)
+(A person during driving is doing multiple tasks, checking behind cars, watching for cars coming from sideways etc. Based on this factor he has to decide when to slow down his speed)
+Propose a solution for this: Crisp function. Draw graphs and show how.

@@ -1,0 +1,22 @@
+
+Dynamic Host Configuration Protocol:
+
+// Assigning IP to Router
+R>en
+R#conf t
+R# int fa0/0
+R# ip address 192.168.1.1 255.255.255.0
+R# no shutdown 
+
+//Configuring DHCP on router:
+R(config)# ip dhcp pool cisco
+# network 192.168.1.0 255.255.255.0
+# default-router 192.168.1.1
+# exit
+
+//Optional:
+Router(config)#ip dhcp excluded-address 192.168.1.4 192.168.1.7
+Router(config)#exit
+
+// Set PC(s) IP Configuration to DHCP From Static.
+

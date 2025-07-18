@@ -1,0 +1,6 @@
+Computational Intelligence (CI)
+Midterm exam FA23 (Fall 2023)
+Dr. Atifa Athar
+Q1) Why Lstm suitable for smaller datasets ?
+Q2) Scnario of a call centre which Model will you use Rnn/lstm (draw figure of Neural network showing nodes for Calls customers and network providers :: Detailed Diagram)
+Q3) Find all paths with cost using Ant colonisation Algorithm. Source node S

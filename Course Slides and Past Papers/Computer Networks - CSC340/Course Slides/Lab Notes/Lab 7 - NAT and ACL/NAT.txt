@@ -1,0 +1,14 @@
+1. Static Nat:
+	(a). ip nat inside source static [local address] [global address]
+	(b). Set interface: ip nat inside
+			    ip nat outside
+	(c). Static routing: ip route 20.0.0.0 255.0.0.0 192.168.2.1
+
+
+2. Dynamic Nat:
+	(a). access-list 1 permit 192.168.1.0 0.0.0.0
+	(b). ip nat pool cisco 50.0.0.1 50.0.0.2 netmask 255.0.0.0
+	(c). ip nat inside source list 1 pool ccna
+	(d). ip nat inside 
+	     ip nat outside
+

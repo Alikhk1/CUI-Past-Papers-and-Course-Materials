@@ -1,0 +1,24 @@
+
+1. Make the Topology and assign IPs to Routers and PCs
+
+2. Create two routes for network 30.0.0.0/8 and configure the first route (via -Router1) as
+the main route and the second route (via-Router2) as a backup route:
+
+Router(config)#ip route 30.0.0.0 255.0.0.0 20.0.0.2 10
+Router(config)#ip route 30.0.0.0 255.0.0.0 40.0.0.2 20
+
+	(a). 30.0.0.0 is the network you're trying to access.
+	(b). 255.0.0.0 is the subnet mask
+	(c). 20.0.0.2 is the next hop, It specifies the IP address of the next router.
+	(d). 10 is administrative distance,  used to determine which route should be preferred 
+	     if multiple routes to the same destination exist. Lower values indicate higher trustworthiness.
+
+3. Keep adding routes following the syntax, you can also add route for individual device:
+
+Router(config)#ip route 30.0.0.100 255.255.255.255 40.0.0.2 10
+Router(config)#ip route 30.0.0.100 255.255.255.255 20.0.0.2 20
+
+Creates two routes for the "server" 30.0.0.100/8 and configure the first route (via -Router2) 
+as the main route and the second route (via-Router1) as a backup route.
+
+

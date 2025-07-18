@@ -1,0 +1,23 @@
+1. RIP:
+
+Router(config)#router rip
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 192.168.2.0
+Router(config-router)#network 192.168.3.0
+Router(config-if)#exit
+
+2. EIGRP:
+
+Router(config)#router eigrp 10
+Router(config-router)#network 192.168.1.0 255.255.255.0
+Router(config-router)#network 192.168.2.0 255.255.255.0
+Router(config-router)#network 192.168.3.0 255.255.255.0
+Router(config-if)#exit
+
+3. OSPF:
+
+Router(config)#router ospf 1 
+Router(config-router)#network 192.168.1.0 255.255.255.0 area 0
+Router(config-router)#network 192.168.2.0 255.255.255.0 area 0 
+Router(config-router)#network 192.168.3.0 255.255.255.0 area 0 
+Router(config-router)#exit

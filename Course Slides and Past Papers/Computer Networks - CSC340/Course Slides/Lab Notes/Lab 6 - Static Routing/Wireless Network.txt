@@ -1,0 +1,18 @@
+
+
+=> Use WRT300N Router
+=> DHCP is automatically enabled on Wireless Router, you can also use Static IP.
+
+1. Replace PC Ethernet Port With Wireless Port.
+2. Set up Password for router:
+	i. Click on Router > Config > Wireless: Set Authentication to WPA2-PSK and set Password.
+       ii. Click on PC> Desktop > PC Wireless > Connect to Wifi with password.
+
+
+=> Two Types of Password: 1. For Connecting 2. For Changing Router Settings.
+
+
+1. Click on Router > GUI > Administration: For Router Setting Password.
+2. Click on PC > Desktop > Config > Web browser > Go to Router's IP (192.168.0.1). (Default User:admin Password: admin)
+
+
