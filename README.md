@@ -36,4 +36,4 @@ If you're new to GitHub, check out [How to create a Pull Request](https://openso
 
 ---
 
-> ⭐ If this helped you, consider starring the repo or sharing it with friends!
+⭐ If this helped you, consider starring the repo or sharing it with friends!
