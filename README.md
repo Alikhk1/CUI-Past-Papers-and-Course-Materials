@@ -14,6 +14,7 @@ Hopefully this helps fellow students prepare better, save time, and get an idea 
 If you’re currently studying BCS at COMSATS (or planning to), feel free to reach out:
 - Ask about courses, experience, or specific subjects
 - Share missing papers or better slides to improve the repo
+  
 📬 **Contact:**  
 - [LinkedIn](https://www.linkedin.com/in/muhammad-ali-0ab626258/)
 
