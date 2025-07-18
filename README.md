@@ -34,6 +34,6 @@ You can:
 **Tip:**  
 If you're new to GitHub, check out [How to create a Pull Request](https://opensource.guide/how-to-contribute/#opening-a-pull-request).
 
-
+---
 
 > ⭐ If this helped you, consider starring the repo or sharing it with friends!
