@@ -1,0 +1,116 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.printf("Enter Number of Processes = ");
+        int NumberOfProcesses = scanner.nextInt();    // Getting Number of processes
+
+        int[][] BurstTime = new int[NumberOfProcesses][3];
+        BurstTimeArray(BurstTime);  // Giving BurstTime to Each Process
+
+        int[] WaitingTime = new int[NumberOfProcesses];
+        WaitingTimeArray(BurstTime, WaitingTime);  // Calculating Waiting Time of Each Process
+
+        int[] TurnAroundTime = new int[NumberOfProcesses];
+        TurnAroundTimeArray(TurnAroundTime, BurstTime, WaitingTime);
+
+        double AverageWaitingTime = AverageWaitingTime(WaitingTime, NumberOfProcesses);
+        double AverageTurnAroundTime = AverageTurnAroundTime(TurnAroundTime, NumberOfProcesses);
+
+        PrintOutput(NumberOfProcesses,BurstTime, WaitingTime, TurnAroundTime, AverageWaitingTime, AverageTurnAroundTime);
+    }
+
+    public static void BurstTimeArray(int[][] BurstTime){
+        Scanner scanner = new Scanner(System.in);
+        for(int i=0; i<BurstTime.length; i++) {
+            BurstTime[i][0] = i; // Store original process ID
+            for (int j= 1; j < BurstTime[i].length; j++) {
+                if (j == 2) {
+                    System.out.printf("Enter the Priority of Process %d = ", i + 1 );
+                } else {
+                    System.out.printf("Enter the Burst Time of Process %d = ", i + 1);
+                }
+                BurstTime[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Sort based on priority
+        for (int i = 0; i < BurstTime.length - 1; i++) {
+            for (int j = 0; j < BurstTime.length - i - 1; j++) {
+                if (BurstTime[j][2] > BurstTime[j + 1][2]) {
+                    // Swap rows
+                    int[] temp = BurstTime[j];
+                    BurstTime[j] = BurstTime[j + 1];
+                    BurstTime[j + 1] = temp;
+                }
+            }
+        }
+        System.out.println();
+        System.out.printf("Burst Time Array According to Priority = {");
+        for(int i=0; i<BurstTime.length-1; i++){
+            System.out.printf("%d, ", BurstTime[i][1]);
+        }
+        System.out.printf("%d}", BurstTime[BurstTime.length-1][1]);
+        System.out.println();
+    }
+
+    public static void WaitingTimeArray(int[][] BurstTime, int[] WaitingTime){
+        WaitingTime[0] = 0;
+        for(int i=1; i<WaitingTime.length; i++){
+            WaitingTime[i] = WaitingTime[i-1] + BurstTime[i-1][1];
+        }
+
+        System.out.printf("Waiting Time Array = {");
+        for(int i=0; i<WaitingTime.length-1; i++){
+            System.out.printf("%d, ", WaitingTime[i]);
+        }
+        System.out.printf("%d}", WaitingTime[WaitingTime.length-1]);
+        System.out.println();
+    }
+
+    public static void TurnAroundTimeArray(int[] TurnAroundTime, int[][] BurstTime, int[] WaitingTime){
+        for(int i=0; i<TurnAroundTime.length; i++){
+            TurnAroundTime[i] = BurstTime[i][1] + WaitingTime[i];
+        }
+
+        System.out.printf("Turn Around Time Array = {");
+        for(int i=0; i<TurnAroundTime.length-1; i++){
+            System.out.printf("%d, ", TurnAroundTime[i]);
+        }
+        System.out.printf("%d}", TurnAroundTime[TurnAroundTime.length-1]);
+        System.out.println();
+        System.out.println();
+    }
+
+    public static double AverageWaitingTime(int[] WaitingTime, int NumberOfProcesses){
+        int TotalWaitingTime = 0;
+        for(int i=0; i<WaitingTime.length; i++){
+            TotalWaitingTime += WaitingTime[i];
+        }
+        return (double) TotalWaitingTime / NumberOfProcesses;
+    }
+
+    public static double AverageTurnAroundTime(int[] TurnAroundTime, int NumberOfProcesses){
+        int TotalTurnAroundTime = 0;
+        for(int i=0; i<TurnAroundTime.length; i++){
+            TotalTurnAroundTime += TurnAroundTime[i];
+        }
+        return (double) TotalTurnAroundTime / NumberOfProcesses;
+    }
+
+    public static void PrintOutput(int NumberOfProcesses, int[][] BurstTime, int[] WaitingTime, int[] TurnAroundTime, double AverageWaitingTime, double AverageTurnAroundTime){
+        System.out.println("================================================================================");
+        System.out.println("Processes\t\tBurst Time\t\tWaiting Time\t\tTurn Around Time");
+        System.out.println("================================================================================");
+        for(int i=0; i<NumberOfProcesses; i++){
+            System.out.printf("%d\t\t\t\t%d\t\t\t\t%d\t\t\t\t\t%d", BurstTime[i][0] + 1, BurstTime[i][1], WaitingTime[i], TurnAroundTime[i]);
+            System.out.println();
+        }
+        System.out.println("================================================================================");
+        System.out.printf("Average Waiting Time = %f", AverageWaitingTime);
+        System.out.println();
+        System.out.printf("Average Turn Around Time = %f", AverageTurnAroundTime);
+    }
+}

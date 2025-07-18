@@ -1,0 +1,173 @@
+#include <iostream>
+
+using namespace std;
+
+void print_Array(int arr[], int size);
+void Sorting(int Burst_Time[],int no_of_processes);
+void Process_Number_Sorting(int priority_sort[],int priority_arr[],bool check[],int processes[],int no_of_processes,int Burst_Time[],int BT_temp[]);
+void Heading();
+void Output_Table(int processes[],int Burst_Time[],int Wait_Time[],int Total_Turnaround_Time[],int no_of_processes);
+
+int main()
+{
+Repeat:
+    Heading();
+    int no_of_processes;
+    float sum=0,avg_WT=0,avg_TAT=0,throughput=0,temp=0;
+    char Repeat_Call;
+    cout<<endl<<"\tEnter the Number of Processes = ";
+    cin>>no_of_processes;
+
+    int Burst_Time[no_of_processes],Wait_Time[no_of_processes],Total_Turnaround_Time[no_of_processes];
+    int BT_temp[no_of_processes],processes[no_of_processes],priority_arr[no_of_processes],priority_sort[no_of_processes];
+    bool check[no_of_processes];
+
+    cout<<endl;
+    for(int i=0;i<no_of_processes;i++)
+    {
+        cout<<"\t("<<i+1<<")\tEnter the Burst Time for Process-"<<i+1<<" = ";
+        cin>>Burst_Time[i];
+        cout<<"\t("<<i+1<<")\tEnter the Priority for Process-"<<i+1<<" = ";
+        cin>>priority_arr[i];
+        BT_temp[i]=Burst_Time[i];
+        priority_sort[i]=priority_arr[i];
+
+        check[i]=true;
+        processes[i]=0;
+        cout<<endl;
+    }
+    cout<<endl<<"\tBurst Time ";
+    print_Array(Burst_Time,no_of_processes);
+    cout<<endl<<"\tPriority ";
+    print_Array(priority_arr,no_of_processes);
+
+    Sorting(priority_sort,no_of_processes);
+    Process_Number_Sorting(priority_sort,priority_arr,check,processes,no_of_processes,Burst_Time,BT_temp);
+    cout<<endl<<"\n\tPriority Sorted ";
+    print_Array(priority_sort,no_of_processes);
+
+    cout<<endl<<"\tBurst Time ";
+    print_Array(Burst_Time,no_of_processes);
+
+    Wait_Time[0]=0;
+    for(int i=1;i<no_of_processes;i++)
+    {
+        Wait_Time[i] =Burst_Time[i-1]+Wait_Time[i-1];
+    }
+    cout<<endl<<"\n\tWait Time ";
+    print_Array(Wait_Time,no_of_processes);
+
+    for(int i=0;i<no_of_processes;i++)
+    {
+        Total_Turnaround_Time[i] =Burst_Time[i]+Wait_Time[i];
+    }
+    cout<<endl<<"\tTotal Turnaround Time ";
+    print_Array(Total_Turnaround_Time,no_of_processes);
+
+    Output_Table(processes,Burst_Time,Wait_Time,Total_Turnaround_Time,no_of_processes);
+
+    for(int i=0;i<no_of_processes;i++)
+    {
+        sum = sum + Wait_Time[i];
+    }
+    avg_WT = sum/no_of_processes;
+    cout<<"\n\n\tAverage Wait Time = (";
+    for(int i=0;i<no_of_processes-1;i++)
+    {
+        cout<<Wait_Time[i]<<"+";
+    }
+    cout<<Wait_Time[no_of_processes-1]<<")/"<<no_of_processes<<" = "<<avg_WT;
+
+    sum=0;
+    for(int i=0;i<no_of_processes;i++)
+    {
+        sum = sum + Total_Turnaround_Time[i];
+    }
+    avg_TAT = sum/no_of_processes;
+
+    cout<<endl<<"\tAverage Turnaround Time = (";
+    for(int i=0;i<no_of_processes-1;i++)
+    {
+        cout<<Total_Turnaround_Time[i]<<"+";
+    }
+    cout<<Total_Turnaround_Time[no_of_processes-1]<<")/"<<no_of_processes<<" = "<<avg_TAT;
+    temp=0;
+    temp = Total_Turnaround_Time[no_of_processes-1];
+    throughput = (no_of_processes)/temp;
+    cout<<endl<<"\tThroughput = ("<<no_of_processes<<"/"<<temp<<") = "<<throughput<<endl;
+    cout<<"\n\t======================================================================="<<endl;
+
+    cout<<"\n\tEnter (y) for Continue and any other key to TERMINATE the Program = ";
+    cin>>Repeat_Call;
+    if(Repeat_Call=='y')
+    {
+        system("Cls");
+        system("Color 70");
+        goto Repeat;
+    }
+
+    return 0;
+}
+
+void print_Array(int arr[], int size)
+{
+    cout<<"Array = {";
+    for(int i=0;i<size-1;i++)
+    {
+        cout<<arr[i]<<", ";
+    }
+    cout<<arr[size-1]<<"}";
+}
+
+void Sorting(int Burst_Time[],int no_of_processes)
+{
+    int temp=0;
+    for(int i=0;i<no_of_processes-1;i++)
+    {
+        for(int j=0;j<no_of_processes-1-i;j++)
+        {
+            if(Burst_Time[j]>Burst_Time[j+1])
+            {
+                temp = Burst_Time[j];
+                Burst_Time[j]=Burst_Time[j+1];
+                Burst_Time[j+1]=temp;
+            }
+        }
+    }
+}
+
+void Process_Number_Sorting(int priority_sort[],int priority_arr[],bool check[],int processes[],int no_of_processes,int Burst_Time[],int BT_temp[])
+{
+    for(int i=0;i<no_of_processes;i++)
+    {
+        for(int j=0;j<no_of_processes;j++)
+        {
+            if(priority_sort[i]==priority_arr[j] && check[j]==true)
+            {
+                processes[i]=j+1;
+                Burst_Time[i]= BT_temp[j];
+                check[j]=false;
+                break;
+            }
+        }
+    }
+}
+
+void Heading()
+{
+    cout<<"\t======================================================================="<<endl;
+    cout<<"\t|||||||||||{ PRIORITY SCHEDULING SCHEME * NON - PREEMPTIVE }|||||||||||"<<endl;
+    cout<<"\t======================================================================="<<endl;
+}
+
+void Output_Table(int processes[],int Burst_Time[],int Wait_Time[],int Total_Turnaround_Time[],int no_of_processes)
+{
+    cout<<endl<<endl<<"\t======================================================================="<<endl;
+    cout<<"\tProcesses\tBurst_Time\tWait_Time\tTotal_Turnaround_Time"<<endl;
+    cout<<"\t======================================================================="<<endl;
+    for(int i=0;i<no_of_processes;i++)
+    {
+        cout<<"\tProcess-"<<processes[i]<<"\t"<<Burst_Time[i]<<"\t\t"<<Wait_Time[i]<<"\t\t"<<Total_Turnaround_Time[i]<<endl;
+    }
+    cout<<"\t======================================================================="<<endl;
+}

@@ -1,0 +1,107 @@
+import java.util.Scanner;
+
+public class BankersAlgorithm {
+    private int numberOfProcesses;
+    private int numberOfResources;
+    private int[][] allocated;
+    private int[][] maximum;
+    private int[][] need;
+    private int[] available;
+
+    public BankersAlgorithm(int numberOfProcesses, int numberOfResources) {
+        this.numberOfProcesses = numberOfProcesses;
+        this.numberOfResources = numberOfResources;
+        this.allocated = new int[numberOfProcesses][numberOfResources];
+        this.maximum = new int[numberOfProcesses][numberOfResources];
+        this.need = new int[numberOfProcesses][numberOfResources];
+        this.available = new int[numberOfResources];
+    }
+
+    public void inputMatrixData(Scanner scanner, String matrixName, int[][] matrix) {
+        System.out.println("Enter the " + matrixName + " matrix:");
+        for (int i = 0; i < numberOfProcesses; i++) {
+            for (int j = 0; j < numberOfResources; j++) {
+                System.out.printf("Enter %s for Process %d, Resource %d: ", matrixName, i + 1, j + 1);
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    public void inputVectorData(Scanner scanner, String vectorName, int[] vector) {
+        System.out.println("Enter the " + vectorName + " vector:");
+        for (int i = 0; i < numberOfResources; i++) {
+            System.out.printf("Enter %s for Resource %d: ", vectorName, i + 1);
+            vector[i] = scanner.nextInt();
+        }
+    }
+
+    public void calculateNeedMatrix() {
+        for (int i = 0; i < numberOfProcesses; i++) {
+            for (int j = 0; j < numberOfResources; j++) {
+                need[i][j] = maximum[i][j] - allocated[i][j];
+            }
+        }
+    }
+
+    public boolean isSafe() {
+        boolean[] finish = new boolean[numberOfProcesses];
+        int[] work = new int[numberOfResources];
+        System.arraycopy(available, 0, work, 0, numberOfResources);
+        int[] safeSequence = new int[numberOfProcesses];
+        int count = 0;
+
+        while (count < numberOfProcesses) {
+            boolean found = false;
+            for (int i = 0; i < numberOfProcesses; i++) {
+                if (!finish[i]) {
+                    int j;
+                    for (j = 0; j < numberOfResources; j++) {
+                        if (need[i][j] > work[j]) {
+                            break;
+                        }
+                    }
+                    if (j == numberOfResources) {
+                        for (int k = 0; k < numberOfResources; k++) {
+                            work[k] += allocated[i][k];
+                        }
+                        safeSequence[count++] = i;
+                        finish[i] = true;
+                        found = true;
+                    }
+                }
+            }
+            if (!found) {
+                System.out.println("The system is not in a safe state.");
+                return false;
+            }
+        }
+        System.out.println("The system is in a safe state.\nSafe sequence is: ");
+        for (int i = 0; i < numberOfProcesses; i++) {
+            System.out.print("P" + safeSequence[i]);
+            if (i != numberOfProcesses - 1) {
+                System.out.print(" -> ");
+            }
+        }
+        System.out.println();
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of processes: ");
+        int numberOfProcesses = scanner.nextInt();
+
+        System.out.print("Enter the number of resources: ");
+        int numberOfResources = scanner.nextInt();
+
+        BankersAlgorithm bankers = new BankersAlgorithm(numberOfProcesses, numberOfResources);
+
+        bankers.inputMatrixData(scanner, "allocated", bankers.allocated);
+        bankers.inputMatrixData(scanner, "maximum", bankers.maximum);
+        bankers.inputVectorData(scanner, "available", bankers.available);
+
+        bankers.calculateNeedMatrix();
+        bankers.isSafe();
+    }
+}

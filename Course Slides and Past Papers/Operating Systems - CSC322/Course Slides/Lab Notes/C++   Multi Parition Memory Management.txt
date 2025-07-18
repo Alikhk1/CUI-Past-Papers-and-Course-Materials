@@ -1,0 +1,236 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int blocks,processes,memNotAssigned=0,choice,temp=0,swapp=0;
+    bool flag = true;
+    cout << "Enter the number of Memory Blocks = ";
+    cin>>blocks;
+    int memBlocks[blocks];
+
+    for(int i=0; i<blocks; i++)
+    {
+        cout<<"\tAssign Memory to Block "<<i+1<<" = ";
+        cin>>memBlocks[i];
+    }
+
+    cout << "\nEnter the number of Processes = ";
+    cin>>processes;
+    int processMemory[processes],memNotAssignedToProcesses[processes],fragment[blocks],frag_indexes[blocks];
+
+    for(int i=0; i<processes; i++)
+    {
+        cout<<"\tRequired Memory for Process "<<i+1<<" = ";
+        cin>>processMemory[i];
+    }
+again:
+    cout<<"\nEnter (1) First-Fit Method (2) Best-Fit Method (3) Worst-Fit Method\nEnter your Choice = ";
+    cin>>choice;
+
+    switch(choice)
+    {
+    case 1:
+    {
+        cout<<endl<<endl<<"\t\t";
+        for(int i=0; i<blocks; i++)
+        {
+            cout<<"B-"<<i+1<<"\t";
+        }
+        cout<<endl<<"\t\t";
+        for(int i=0; i<blocks; i++)
+        {
+            cout<<memBlocks[i]<<"\t";
+        }
+        cout<<endl;
+
+        for(int i=0; i<processes; i++)
+        {
+            cout<<"P-"<<i+1<<" => ("<<processMemory[i]<<")\t";
+            for(int j=0; j<blocks; j++)
+            {
+                if(memBlocks[j]>=processMemory[i] && flag==true)
+                {
+                    memBlocks[j]=memBlocks[j]-processMemory[i];
+                    cout<<memBlocks[j]<<"\t";
+                    flag=false;
+                }
+                else
+                {
+                    cout<<memBlocks[j]<<"\t";
+
+                }
+
+                if(j==blocks-1 && flag==true)
+                {
+                    memNotAssignedToProcesses[memNotAssigned]=i;
+                    memNotAssigned++;
+                }
+            }
+            flag = true;
+            cout<<endl;
+        }
+        cout<<endl<<endl;
+        if(memNotAssigned>=1)
+        {
+            cout<<"Memory is not Assigned to ";
+            for(int i=0; i<memNotAssigned; i++)
+            {
+                cout<<"Process-"<<memNotAssignedToProcesses[i]+1<<", ";
+            }
+            cout<<endl<<endl;
+        }
+        break;
+    }
+    case 2:
+    {
+        cout<<endl<<endl<<"\t\t";
+        for(int i=0; i<blocks; i++)
+        {
+            cout<<"B-"<<i+1<<"\t";
+        }
+        cout<<endl<<"\t\t";
+        for(int i=0; i<blocks; i++)
+        {
+            cout<<memBlocks[i]<<"\t";
+        }
+        cout<<endl;
+
+        for(int i=0; i<processes; i++)
+        {
+            cout<<"P-"<<i+1<<" => ("<<processMemory[i]<<")\t";
+            for(int j=0; j<blocks; j++)
+            {
+                if(memBlocks[j]>=processMemory[i])
+                {
+                    fragment[temp] = memBlocks[j]-processMemory[i];
+                    frag_indexes[temp] = j;
+                    temp++;
+                }
+
+                if(j==blocks-1 && temp==0)
+                {
+                    memNotAssignedToProcesses[memNotAssigned]=i;
+                    memNotAssigned++;
+                }
+            }
+            if(temp>0)
+            {
+                for(int j=0; j<temp-1; j++)
+                {
+                    if(fragment[j]<fragment[j+1])
+                    {
+                        swapp = fragment[j];
+                        fragment[j]=fragment[j+1];
+                        fragment[j+1] = swapp;
+
+                        swapp = frag_indexes[j];
+                        frag_indexes[j] = frag_indexes[j+1];
+                        frag_indexes[j+1] = swapp;
+                    }
+                }
+                swapp=frag_indexes[temp-1];
+                memBlocks[swapp] = memBlocks[swapp] - processMemory[i];
+            }
+
+            for(int j=0; j<blocks; j++)
+            {
+                cout<<memBlocks[j]<<"\t";
+            }
+
+            temp=0;
+            flag = true;
+            cout<<endl;
+        }
+        cout<<endl<<endl;
+        if(memNotAssigned>=1)
+        {
+            cout<<"Memory is not Assigned to ";
+            for(int i=0; i<memNotAssigned; i++)
+            {
+                cout<<"Process-"<<memNotAssignedToProcesses[i]+1<<", ";
+            }
+            cout<<endl<<endl;
+        }
+        break;
+    }
+    case 3:
+    {
+        cout<<endl<<endl<<"\t\t";
+        for(int i=0; i<blocks; i++)
+        {
+            cout<<"B-"<<i+1<<"\t";
+        }
+        cout<<endl<<"\t\t";
+        for(int i=0; i<blocks; i++)
+        {
+            cout<<memBlocks[i]<<"\t";
+        }
+        cout<<endl;
+
+        for(int i=0; i<processes; i++)
+        {
+            cout<<"P-"<<i+1<<" => ("<<processMemory[i]<<")\t";
+            for(int j=0; j<blocks; j++)
+            {
+                if(memBlocks[j]>=processMemory[i])
+                {
+                    fragment[temp] = memBlocks[j]-processMemory[i];
+                    frag_indexes[temp] = j;
+                    temp++;
+                }
+
+                if(j==blocks-1 && temp==0)
+                {
+                    memNotAssignedToProcesses[memNotAssigned]=i;
+                    memNotAssigned++;
+                }
+            }
+            if(temp>0)
+            {
+                for(int j=0; j<temp-1; j++)
+                {
+                    if(fragment[j]>fragment[j+1])
+                    {
+                        swapp = fragment[j];
+                        fragment[j]=fragment[j+1];
+                        fragment[j+1] = swapp;
+
+                        swapp = frag_indexes[j];
+                        frag_indexes[j] = frag_indexes[j+1];
+                        frag_indexes[j+1] = swapp;
+                    }
+                }
+                swapp=frag_indexes[temp-1];
+                memBlocks[swapp] = memBlocks[swapp] - processMemory[i];
+            }
+
+            for(int j=0; j<blocks; j++)
+            {
+                cout<<memBlocks[j]<<"\t";
+            }
+
+            temp=0;
+            flag = true;
+            cout<<endl;
+        }
+        cout<<endl<<endl;
+        if(memNotAssigned>=1)
+        {
+            cout<<"Memory is not Assigned to ";
+            for(int i=0; i<memNotAssigned; i++)
+            {
+                cout<<"Process-"<<memNotAssignedToProcesses[i]+1<<", ";
+            }
+            cout<<endl<<endl;
+        }
+        break;
+    }
+    default:
+        cout<<"Invalid Input";
+        goto again;
+    }
+
+    return 0;
+}

@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+public class FixedPartitioning {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("===================================================================");
+        System.out.println("==== MEMORY MANAGEMENT WITH FIXED PARTITIONING TECHNIQUE (MFT) ====");
+        System.out.println("===================================================================\n");
+
+        System.out.print("Enter Total Available Memory (in Bytes) = ");
+        int memoryBlockSize = scanner.nextInt();
+
+        System.out.print("\nEnter Memory Block Size per Process (in Bytes) = ");
+        int allocatedMemorySize;
+        while (true) {
+            allocatedMemorySize = scanner.nextInt();
+            if (allocatedMemorySize <= memoryBlockSize) break;
+            System.out.print("Enter the Allocated Memory Again, it must be less than " + memoryBlockSize + " = ");
+        }
+
+        System.out.print("\nEnter the Number of Processes = ");
+        int processes = scanner.nextInt();
+
+        int[] requiredMemory = new int[processes];
+        for (int i = 0; i < processes; i++) {
+            System.out.print("\tEnter the Required Memory for Process-" + (i + 1) + " (in Bytes) = ");
+            requiredMemory[i] = scanner.nextInt();
+        }
+
+        int partitions = memoryBlockSize / allocatedMemorySize;
+        System.out.println("\nThere are " + partitions + " Memory Partition Blocks available.\n");
+
+        int[] fragment = new int[processes];
+        int[] processesExecuted = new int[processes];
+        int internalFragment = 0;
+        int tempFragment = 0;
+
+        for (int i = 0; i < processes; i++) {
+            if (requiredMemory[i] <= allocatedMemorySize && memoryBlockSize >= allocatedMemorySize) {
+                fragment[tempFragment] = allocatedMemorySize - requiredMemory[i];
+                internalFragment += fragment[tempFragment];
+                memoryBlockSize -= allocatedMemorySize;
+                System.out.println("Internal Fragment for Process " + (i + 1) + " = " + fragment[tempFragment]);
+                processesExecuted[tempFragment] = i;
+                tempFragment++;
+            } else {
+                fragment[i] = 0;
+                if (memoryBlockSize < allocatedMemorySize) {
+                    System.out.println("Memory is full. Remaining processes cannot be accommodated.");
+                    break;
+                } else {
+                    System.out.println("Memory Block cannot assign because Required Memory for Process " + (i + 1) + " is more than available memory.");
+                }
+            }
+        }
+
+        System.out.println("\n==============================================================================");
+        System.out.println("Process\t\tMemory-Required\t\tAllocated\tInternal Fragmentation");
+        System.out.println("==============================================================================");
+
+        int temp = 0;
+        for (int i = 0; i < processes; i++) {
+            System.out.print("Process-" + (i + 1) + "\t\t" + requiredMemory[i] + "\t");
+            if (i == processesExecuted[temp]) {
+                System.out.println("\t\t\tYes\t\t\t" + fragment[temp]);
+                temp++;
+            } else {
+                System.out.println("\t\t\tNo\t\t\t-----");
+            }
+        }
+
+        System.out.println("==============================================================================");
+
+        System.out.println("\nInternal Fragment = " + internalFragment);
+        System.out.println("External Fragment = " + memoryBlockSize);
+    }
+}

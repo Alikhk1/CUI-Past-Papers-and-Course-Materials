@@ -1,0 +1,91 @@
+import java.util.Scanner;
+
+public class BestFit {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the number of memory blocks
+        System.out.print("Enter the number of Memory Blocks: ");
+        int numberOfBlocks = scanner.nextInt();
+        int[] blockSizes = new int[numberOfBlocks];
+
+        // Input the size of each memory block
+        System.out.println("Enter the size of each Memory Block:");
+        for (int i = 0; i < numberOfBlocks; i++) {
+            System.out.printf("Size of Block %d: ", i + 1);
+            blockSizes[i] = scanner.nextInt();
+        }
+
+        // Input the number of processes
+        System.out.print("\nEnter the number of Processes: ");
+        int numberOfProcesses = scanner.nextInt();
+        int[] processSizes = new int[numberOfProcesses];
+
+        // Input the size of each process
+        System.out.println("Enter the size of each Process:");
+        for (int i = 0; i < numberOfProcesses; i++) {
+            System.out.printf("Size of Process %d: ", i + 1);
+            processSizes[i] = scanner.nextInt();
+        }
+
+        // Initialize flags to track allocated blocks
+        boolean[] blockAllocated = new boolean[numberOfBlocks];
+        for (int i = 0; i < numberOfBlocks; i++) {
+            blockAllocated[i] = false;
+        }
+
+        // Allocate memory using Best Fit algorithm
+        allocateMemoryBestFit(blockSizes, processSizes, blockAllocated);
+
+        // Display the allocation table
+        printAllocationTable(blockSizes, processSizes, blockAllocated);
+    }
+
+    // Function to allocate memory using Best Fit algorithm
+    public static void allocateMemoryBestFit(int[] blockSizes, int[] processSizes, boolean[] blockAllocated) {
+        for (int i = 0; i < processSizes.length; i++) {
+            int bestFitIndex = -1;
+            int minFragment = Integer.MAX_VALUE;
+            for (int j = 0; j < blockSizes.length; j++) {
+                if (!blockAllocated[j] && blockSizes[j] >= processSizes[i]) {
+                    int fragment = blockSizes[j] - processSizes[i];
+                    if (fragment < minFragment) {
+                        minFragment = fragment;
+                        bestFitIndex = j;
+                    }
+                }
+            }
+            if (bestFitIndex != -1) {
+                blockAllocated[bestFitIndex] = true;
+            }
+        }
+    }
+
+    // Function to print the allocation table
+    public static void printAllocationTable(int[] blockSizes, int[] processSizes, boolean[] blockAllocated) {
+        System.out.println("\nAllocation Table:");
+        System.out.println("=================================================");
+        System.out.printf("| %-10s | %-15s | %-10s |\n", "Process", "Allocated Block", "Fragment");
+        System.out.println("=================================================");
+        for (int i = 0; i < processSizes.length; i++) {
+            int allocatedBlock = -1;
+            int minFragment = Integer.MAX_VALUE;
+            for (int j = 0; j < blockSizes.length; j++) {
+                if (blockAllocated[j] && blockSizes[j] >= processSizes[i]) {
+                    int fragment = blockSizes[j] - processSizes[i];
+                    if (fragment < minFragment) {
+                        minFragment = fragment;
+                        allocatedBlock = j;
+                    }
+                }
+            }
+            if (allocatedBlock != -1) {
+                blockSizes[allocatedBlock] -= processSizes[i];
+                System.out.printf("| %-10s | %-15s | %-10d |\n", "P" + (i + 1), "B" + (allocatedBlock + 1), minFragment);
+            } else {
+                System.out.printf("| %-10s | %-15s | %-10s |\n", "P" + (i + 1), "Not Allocated", "-");
+            }
+        }
+        System.out.println("=================================================");
+    }
+}

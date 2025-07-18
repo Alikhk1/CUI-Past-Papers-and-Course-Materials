@@ -1,0 +1,115 @@
+#include <iostream>
+
+using namespace std;
+
+void print_Array(int arr[], int size);
+
+int main()
+{
+    int no_of_processes;
+    float sum=0,avg_WT=0,avg_TAT=0,throughput=0,temp=0;
+    cout<<endl<<"\tEnter the Number of Processes = ";
+    cin>>no_of_processes;
+
+    int Burst_Time[no_of_processes],Wait_Time[no_of_processes],Total_Turnaround_Time[no_of_processes];
+    int BT_temp[no_of_processes],processes[no_of_processes];
+    bool check[no_of_processes];
+
+    cout<<endl;
+    for(int i=0;i<no_of_processes;i++)
+    {
+        cout<<"\tEnter the Burst Time for Process "<<i+1<<" = ";
+        cin>>Burst_Time[i];
+        BT_temp[i]=Burst_Time[i];
+
+        check[i]=true;
+        processes[i]=0;
+    }
+    cout<<endl<<"\tBurst Time ";
+    print_Array(Burst_Time,no_of_processes);
+
+    for(int i=0;i<no_of_processes-1;i++)
+    {
+        for(int j=0;j<no_of_processes-1-i;j++)
+        {
+            if(Burst_Time[j]>Burst_Time[j+1])
+            {
+                temp = Burst_Time[j];
+                Burst_Time[j]=Burst_Time[j+1];
+                Burst_Time[j+1]=temp;
+            }
+        }
+    }
+
+    for(int i=0;i<no_of_processes;i++)
+    {
+        for(int j=0;j<no_of_processes;j++)
+        {
+            if(Burst_Time[i]==BT_temp[j] && check[j]==true)
+            {
+                processes[i]=j+1;
+                check[j]=false;
+                break;
+            }
+        }
+    }
+
+    cout<<endl<<"\tExecution Sequence ";
+    print_Array(Burst_Time,no_of_processes);
+
+    Wait_Time[0]=0;
+    for(int i=1;i<no_of_processes;i++)
+    {
+        Wait_Time[i] =Burst_Time[i-1]+Wait_Time[i-1];
+    }
+    cout<<"\n\n\tWait Time ";
+    print_Array(Wait_Time,no_of_processes);
+
+    for(int i=0;i<no_of_processes;i++)
+    {
+        Total_Turnaround_Time[i] =Burst_Time[i]+Wait_Time[i];
+    }
+    cout<<endl<<"\tTotal Turnaround Time ";
+    print_Array(Total_Turnaround_Time,no_of_processes);
+
+    cout<<endl<<endl<<"\t======================================================================="<<endl;
+    cout<<"\tProcesses\tBurst_Time\tWait_Time\tTotal_Turnaround_Time"<<endl;
+    cout<<"\t======================================================================="<<endl;
+    for(int i=0;i<no_of_processes;i++)
+    {
+        cout<<"\tProcess-"<<processes[i]<<"\t\t"<<Burst_Time[i]<<"\t\t"<<Wait_Time[i]<<"\t\t"<<Total_Turnaround_Time[i]<<endl;
+    }
+    cout<<"\t======================================================================="<<endl;
+
+    for(int i=0;i<no_of_processes;i++)
+    {
+        sum = sum + Wait_Time[i];
+    }
+    avg_WT = sum/no_of_processes;
+    cout<<endl<<"\tAverage Wait Time = "<<avg_WT;
+
+    sum=0;
+    for(int i=0;i<no_of_processes;i++)
+    {
+        sum = sum + Total_Turnaround_Time[i];
+    }
+    avg_TAT = sum/no_of_processes;
+
+    cout<<endl<<"\tAverage Turnaround Time = "<<avg_TAT;
+    temp=0;
+    temp = Total_Turnaround_Time[no_of_processes-1];
+    throughput = (no_of_processes)/temp;
+    cout<<endl<<"\tThroughput = ("<<no_of_processes<<"/"<<temp<<") = "<<throughput<<endl<<endl;
+
+    return 0;
+}
+
+void print_Array(int arr[], int size)
+{
+    cout<<"Array = {";
+    for(int i=0;i<size-1;i++)
+    {
+        cout<<arr[i]<<", ";
+    }
+    cout<<arr[size-1]<<"}";
+}
