@@ -1,0 +1,11 @@
+
+
+MOV DL,7
+MOV AL,7
+MUL DL
+MUL DL   
+
+
+
+
+

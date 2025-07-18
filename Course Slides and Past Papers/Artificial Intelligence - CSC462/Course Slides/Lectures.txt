@@ -1,0 +1,12 @@
+CSP
+https://youtu.be/zX50vVXCoUg?feature=shared
+MCTS
+https://youtu.be/UXW2yZndl7U?feature=shared
+Minimax algorithm
+https://youtu.be/Ntu8nNBL28o?feature=shared
+UCS
+https://youtu.be/dRMvK76xQJI?feature=shared
+A*
+https://youtu.be/6TsL96NAZCo?feature=shared
+Greedy search
+https://youtu.be/Uzraf9TYhjY?feature=shared

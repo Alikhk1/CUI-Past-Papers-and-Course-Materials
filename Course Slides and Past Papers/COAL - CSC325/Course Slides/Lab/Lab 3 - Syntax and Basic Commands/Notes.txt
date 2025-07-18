@@ -1,0 +1,21 @@
+
+1. Emulator always shows output in hex.
+2. Assembly is not case sensitive.
+3. Segment Registers value cannot be changed directly. (Registers with S at the End.)
+4. Can only move values into Segment Registers from other registers. e.g: 
+mov bx,10b
+mov ds,bx
+5. Don't Change the value of IP register.
+6. Data can be stored on memory directly. You need 2 things for that: Segment Address + Offset Address.
+7. You have almost 17 ways of interacting with memory.
+8. int a[10]. These two brackets '[]' represent memory.
+9. To Store something in memory: mov [01e0fh] (Always write 0 in beginning, to show its String, we can omit 0 if 
+   its just numbers and h at end, to show its hexadecimal) and to Read something: mov ,[]
+10. '0x' represents hexadecimal values in other languages.
+11. Registers can come on both sides of the comma.
+12. Memory address can't be on both sides.
+
+
+
+
+

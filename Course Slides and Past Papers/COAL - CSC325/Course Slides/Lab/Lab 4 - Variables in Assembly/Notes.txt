@@ -1,0 +1,11 @@
+
+1. To multiply, put multiplicand in AX.
+
+2. Interrupts check the H part of Accumulator Register: AH
+   based off the value in AH, it will show output or get input.
+
+3. Interrupts will show whatever is in the Data Registers.
+
+4. Value to divided should be stored in AX.
+
+5. "MOV AX, 4CH" return 0 in Assembly.
