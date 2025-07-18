@@ -1,0 +1,8 @@
+Q1. Differentiate Between the following:  (3x5=15)
+1)Peer-to-Peer Network & VPN  
+2)coaxial cable & twisted pair cable
+3)Synchronous & Asynchronous & Isochronous
+4)Protocol & Standard
+5)HTTP & FTP
+
+Q2. List Functions Of windows (6). Explain concepts of Multi-tasking & Multi-processing (4).

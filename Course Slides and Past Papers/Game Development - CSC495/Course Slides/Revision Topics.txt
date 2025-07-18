@@ -1,0 +1,87 @@
+NOTE: All Scripts and games we did in class are part of TERMINAL EXAM syllabus
+1- 3D games objects and their relevant components
+   3D GameObjects: Cube, cylider, sphere, 3d assets from asset store.
+   2D GameObjects: square, triangle, circle, 2D sprites from asset stores 
+   Components: Rigidbody, colliders (box collider, sphere collider etc), audiosource, script, sprite renderer, animator, cinemachine (FOR BSE)
+   Material: Bouciness (Physic Material)-->applied on collider material or rigidbody?
+
+2- In 3d game: FootBall ground--> Plain, texture and tiling on plane, 	Parent child concept by making goals, Audio source (Loop, play on awake), how to manage to 
+   two ausiosources in one script--> use PlayOneShot(audioclip1)
+3- Racing car game--> plane, playercar (had collider, rigidbody, audiosource, car moving script), skybox, traffic cars with moving scripts, building sets on road. Fuel drums 
+   which added health to the car, game loop, game end when fuel is zero. Loading new Scene thorugh scenemanager
+4- Helicopter game: Terrian (paint texture, raise and lower terrain and add tree), helicopter, object instantiation at random positions, particle system, enemies
+   instantiate, colliders on bullets, enemies, and heli. 
+5- In 2D game, what is the difference between static and dynamic rigidbody. 
+   what is the difference between the gravity scale of 2d and 3d rigidbody 
+6- Rigidbody constraint: Freeze position and rotation in XYZ 
+7- Mass and gravity factors of ridigbody iN 3D game
+8- UI elements, buttons (onclick method needs a gameobject with a script having a public method for button),  image and Text (anchor settings and font of Text)
+9- Buttons controls, Why we used public static bool GameMute variable to control audio in all scenes
+10- Pause and resume game control
+11- FPS game, night mode terrian, lights prefabs, how to unpack a prefab?
+12- How to differentiate a normal gameobject with a prefab in hierarchy?
+13- 3D Animation control: right from importing animation clips from any outsource to making it part of a state. Trasitions and parameters (bool and trigger)
+    for animator.
+14- Raycasting
+15- Animation Recording
+16- 3D Character import and extracting textures
+17- CineMachine
+18- Visual Scripting
+
+
+AFTER MID
+
+2D Game DINO GAME.
+
+17- 2D Character sprite identification
+18- 2D Character animations--> group of png images are selected and dropped in the scene view, where it is saved as new animation clip and an animator is attached 
+    automatically.
+19- Grid-->Tilemap-->Tilemap collider.
+20- Sorting Layers
+21- How to adjust Background, character and tiles in the scene accroding to sorting layers.
+22- Character controller 2D script connection with PlayerMovement script. 
+23- Saw Movement script
+24- Apple collection, and scoring
+25- Puzzle game-->rotation of sprites and slicing of images
+    On MouseDown()--> through this method you can directly click on the gameobject
+    OnTouchStart()--> replacement of OnMouseDown for touch input
+    Difference between OnMouseDown() and GetMouseDown()
+    OnMouseDown() is only workable with colliders on the gameobject
+
+26- How to pick random number from given list?
+	public int[] rotationAngles = {90,-90,180,-180};
+        int pickRandom = Random.Range(0,3);
+        transform.Rotate(0,0,rotationAngles[pickRandom]);
+
+27- Write steps to create Banner Ad--admob account, google ad plugin, register app, get appid  
+
+28- Multiplayer Game-->Photon Pun Engine account, register app, get app id and paste in photon PUN package
+
+30- NavMeshAgent-->Bake(Windows-->AI) the Terrain and give a target goal to make the character move towards that goal
+   using script below:
+
+   using System.Collections;
+   using System.Collections.Generic;
+   using UnityEngine;
+   using UnityEngine.AI;
+
+public class moveTowards : MonoBehaviour
+{
+    NavMeshAgent agent;
+    public Transform goal;
+    // Start is called before the first frame update
+    void Start()
+    {
+        agent= GetComponent<NavMeshAgent>();
+        agent.destination = goal.position;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+
+Q3- Write 3 different ways image slicing can be used for? --> animations, puzzle game, making tiles.
