@@ -1,0 +1,15 @@
+Software Project Management (SPM)
+Terminal Exam Fall 2023
+Ma’am Sana Maqbool, Sobia Usman
+[60 Marks Paper]
+Q1: If you are a project manager… software integration management how ?(write list of activities to do being a software project manager). [12 marks]
+Q2: Numerical from cost Management. Find CV, SV, CPI, SPI and EAC. [10 marks]
+Q3: Write mode of communication (Internal, External, upper, lower, official etc) [4 marks]
+Q4: [9 marks]
+a) numerical from Risk Management (RE = PxC)
+b) Mitagation/Monitoring steps for a scnario.
+Q5: Write type of contracts for each of the following. [5 marks]
+Q6: [8 marks] 
+a) HR interpersonal skills ?  [4 marks]
+b) Difference weak matrix Org. Vs Strong Matrix Org. [4 marks]
+Q:7 SCRUM in detail. With diagram and advantages [12 marks]
